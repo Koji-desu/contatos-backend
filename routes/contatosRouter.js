@@ -6,14 +6,14 @@ const ControllerContatos = require('../controllers/ControllerContatos')
 Listar informações de um contato específico  | GET     | /contatos/:id
 Cadastrar um contato                         | POST    | /contatos
 Deletar um contato                           | DELETE  | /contatos/:id
-Alterar um contato                           | UPDATE  | /contatos/:id
+Alterar um contato                           | PUT  | /contatos/:id
 
 */
 
-router.get('/', ControllerContatos)
-router.get('/:id', ControllerContatos)
-router.post('/', ControllerContatos)
-router.delete('/:id', ControllerContatos)
-router.update('/:id', ControllerContatos)
+router.get('/', (req, res)=>{res.send('get contatos')})
+router.get('/:id', (req, res)=>{res.send(`get contatos ${req.params.id}`)})
+router.post('/', (req, res)=>{res.send('post contatos')})
+router.delete('/:id', (req, res)=>{res.send(`delete contato ${req.params.id}`)})
+router.put('/:id', (req, res)=>{res.send(`update contato ${req.params.id}`)})
 
 module.exports = router
