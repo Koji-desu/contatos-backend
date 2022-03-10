@@ -11,8 +11,8 @@ Alterar um contato                           | PUT  | /contatos/:id
 */
 
 router.get('/', ControllerContatos.index )
-router.get('/:id', ControllerContatos.show )
 router.get('/search', ControllerContatos.search)
+router.get('/:id', ControllerContatos.show )
 router.post('/', ControllerContatos.create )
 router.delete('/:id', ControllerContatos.destroy )
 router.put('/:id', ControllerContatos.update )
