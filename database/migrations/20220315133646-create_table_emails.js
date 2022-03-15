@@ -21,7 +21,10 @@ module.exports = {
               {model:
                 {tableName:'contatos'},
                  key:'id'
-                }}
+                },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+              }
       });
   },
 

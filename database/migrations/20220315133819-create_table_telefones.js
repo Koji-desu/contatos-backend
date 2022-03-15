@@ -17,11 +17,14 @@ module.exports = {
         email: {type: Sequelize.STRING(45), allowNull: false},
         contato_id: {type: Sequelize.INTEGER, 
         allowNull: false,
-         references: 
-              {model:
+        references: 
+            { model:
                 {tableName:'contatos'},
                  key:'id'
-                }}
+                },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+              }
       });
   },
 
