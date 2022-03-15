@@ -26,13 +26,29 @@ module.exports = {
        res.status(200).json(resultado)
     },
 
-    create: (req, res)=>{
-        // let {nome, email} = req.body
+    create: async(req, res)=>{
 
-        // let usuario = Usuario.create({
-        //     nome, email
-        // })
-        res.send(`Criando contato`)
+        // Capturando as info do body
+        let {nome, emails, telefones} = req.body;
+
+        // Salvar o nome contato
+        
+        let sql = `INSERT INTO contatos (nome, usuarios_id) VALUES ("${nome}" , "${userID}")`
+        let resultado = await sequelize.query(sql, {type: sequelize.QueryTypes.INSERT})
+
+        // Levantar o ID do contato recém criado
+        let [idCriado, nLinhas] = resultado
+
+        // Salvar os emails 
+        emails = emails.map( (e)=> {return {email: e, contatos_id: idCriado}})
+        sequelize.queryInterface.bulkInsert('emails', emails);
+        
+        // Salvar os telefones
+        telefones = telefones.map( (t)=> {return {telefone: t, contatos_id: idCriado}})
+        sequelize.queryInterface.bulkInsert('telefones', telefones);
+        
+        // Enviar uma resposta para o cliente
+        res.json({msg:'ok', idCriado})
     },
     destroy: (req, res)=>{
         let {id} = req.params
