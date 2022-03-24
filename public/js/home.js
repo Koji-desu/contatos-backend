@@ -46,6 +46,11 @@ let contatos = [
 
 // Função que mostra todos os contatos
 let showContatos = (contatos)=> {
+
+    // Cleanando o main
+    let main = document.querySelector('main');
+    main.innerHTML = ''
+
     contatos.forEach(
         c=> {
             // Criar um elemento section
@@ -82,9 +87,6 @@ let showContatos = (contatos)=> {
             section.innerHTML = html
 
             // Adicionando a section do contato na main
-                // Capturar main (querySelector)
-                let main = document.querySelector('main')
-
                 // Adicionar a section ao main
                 main.appendChild(section)
         }
@@ -93,4 +95,15 @@ let showContatos = (contatos)=> {
    
 }
 
+let buscaContatos = (trecho)=>{
+
+    // Filtrar dos contatos somente os que possuem
+    // o trecho no nome
+    let contatosFiltrados = contatos.filter(
+        c => c.nome.includes(trecho)
+    )
+
+    // Mostrar os contatos filtrados
+    showContatos(contatosFiltrados)
+}
 showContatos(contatos)
