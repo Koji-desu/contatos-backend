@@ -14,7 +14,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
         },
-        email: {type: Sequelize.STRING(45), allowNull: false},
+        telefone: {type: Sequelize.STRING(45), allowNull: false},
         contato_id: {type: Sequelize.INTEGER, 
         allowNull: false,
         references: 
