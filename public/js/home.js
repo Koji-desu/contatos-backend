@@ -5,6 +5,11 @@ const edits = document.querySelectorAll("section > a");
 const search = document.getElementById('search');
 const cancelButton = document.querySelector('#modal button.link');
 const inputParaFocus = document.querySelector('#modal input[name="nome"]')
+const loginContainer = document.getElementById("login-container");
+const appContainer = document.getElementById("app-container")
+const formLogin = document.querySelector('#login-container > form');
+const emailLogin = document.querySelector('#email');
+const senhaLogin = document.querySelector('#senha');
 
 // Simulando os contatos em uma variável
 const contatos = [
@@ -110,9 +115,38 @@ const carregaContatos = async ()=> {
     showContatos(contatos)
 }
 
-carregaContatos();
+const login = async dadosDeLogin => {
+
+    let response = await fetch(
+        '/login',
+        {
+            method: "POST",
+            body: JSON.stringify(dadosDeLogin),
+            headers: {
+                "content-type":"application/json"
+            }
+        }
+    )
+    let resultado = await response.json()
+    console.log(dadosDeLogin)
+}
 
 search.addEventListener('keyup', (e) => buscaContatos(e.target.value));
 link.addEventListener('click', mostrarModal);
 cancelButton.addEventListener('click', esconderModal);
 modal.addEventListener('keyup', e => e.key === 'Escape' ? esconderModal(e) : null);
+formLogin.addEventListener(
+    'submit',
+    e => {
+        // Interromper o comportamento padrão do evento
+        e.preventDefault();
+
+        // Ler os dados de login
+        let dadosDeLogin = {
+            email: emailLogin.value,
+            senha: senhaLogin.value
+        }
+
+        // Chamar uma função para fazer o login
+        login(dadosDeLogin)
+    })
