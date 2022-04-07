@@ -38,7 +38,7 @@ const AuthController = {
         }
 
         // TODO: Criar o token
-        let token = jwt.sign(usuario, "segredo")
+        let token = jwt.sign(usuario, "SEGREDO")
 
         // TODO: Retornar msg de sucesso: 200 e o token
         return res.status(200).json({token, usuario})

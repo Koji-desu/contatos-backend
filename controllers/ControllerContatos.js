@@ -1,10 +1,12 @@
-const userID = 1
+
 const {sequelize, Sequelize} = require('../database/models')
 
 
 module.exports = {
     index: async (req,res) => {
         
+        // capturar o id do usuario que está mandando a requisição: 
+        let userID = req.usuario.id
         let sql = `SELECT id, nome FROM contatos WHERE usuarios_id=${userID}`;
         let contatos = await sequelize.query(sql, {type:sequelize.QueryTypes.SELECT});
 

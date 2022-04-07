@@ -1,3 +1,5 @@
+
+
 const main = document.querySelector('main');
 const modal = document.getElementById("modal");
 const link = document.getElementById("linkAbrirModal");
@@ -110,7 +112,17 @@ const buscaContatos = trecho => {
 };
 
 const carregaContatos = async ()=> {
-    let resposta = await fetch('/contatos');
+
+    // Carregando token do sessionStorage
+    let token = sessionStorage.getItem('token')
+
+
+    let resposta = await fetch('/contatos', {
+        method:"GET",
+        headers: {
+            authorization: `bearer ${token}`
+        }
+    });
     let contatos = await resposta.json()
     showContatos(contatos)
 }
@@ -127,8 +139,33 @@ const login = async dadosDeLogin => {
             }
         }
     )
-    let resultado = await response.json()
-    console.log(dadosDeLogin)
+
+
+    // Verificando se o login obteve sucesso
+
+        if(response.status==400){
+            alert("login inválido");
+            return
+        } else if(response.status==200){
+
+            // acessar o conteúdo da response
+            let dados = await response.json();
+
+            // Salvar o token
+            sessionStorage.setItem('token', dados.token);
+
+            // mostrar o app container e esconder o login
+            appContainer.style.display = "block";
+            loginContainer.style.display = "none";
+
+            // Carregar os contatos
+            carregaContatos();
+            // alert para erros
+        } else {
+            alert(`Erro inesperado. Entre em contato com o suporte. \n${response.statusText}}`)
+        }
+
+    
 }
 
 search.addEventListener('keyup', (e) => buscaContatos(e.target.value));

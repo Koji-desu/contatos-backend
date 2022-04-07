@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const ControllerContatos = require('../controllers/ControllerContatos')
+const validaToken = require('../middlewares/validaToken')
 
 /* Listar contatos                              | GET     | /contatos
 Listar informações de um contato específico  | GET     | /contatos/:id
@@ -10,7 +11,7 @@ Deletar um contato                           | DELETE  | /contatos/:id
 Alterar um contato                           | PUT  | /contatos/:id
 */
 
-router.get('/', ControllerContatos.index )
+router.get('/', validaToken, ControllerContatos.index )
 router.get('/search', ControllerContatos.search)
 router.get('/:id', ControllerContatos.show )
 router.post('/', ControllerContatos.create )
